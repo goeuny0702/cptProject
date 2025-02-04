@@ -5,191 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Exam Application</title>
-    <style>
-        body {
-            /* width: 100%; */
-            font-family: Arial, sans-serif;
-            margin: 2vh 2vw 2vh 3vw;
-            /* 상대 단위 적용 */
-            background-color: #FFF1FA;
-            display: flex;
-        }
-
-        /* 문제 섹션 */
-        .exam-section {
-            flex: 1;
-            margin-right: 20vw;
-            /* OMR 패널 크기만큼 여백 */
-        }
-
-        /* 문제 박스 */
-        .question {
-            width: 60vw;
-            /* 가로 너비를 % 또는 vw로 조정 */
-            margin-bottom: 2vh;
-            padding: 2vh;
-            background-color: #ffffff;
-            border: 0.1vw solid #ddd;
-            border-radius: 0.5vw;
-        }
-
-        .options label {
-            display: block;
-            margin-bottom: 0.5vh;
-        }
-
-        /* 제출하기 버튼 */
-        .submit {
-            position: fixed;
-            bottom: 5vh;
-            right: 2vw;
-            width: 18vw;
-            /* 화면 크기에 따라 조정 */
-            height: 6vh;
-            border-radius: 0.5vw;
-            padding: 1vh;
-        }
-
-        .submit-btn {
-            width: 100%;
-            padding: 1vh;
-            background-color: deeppink;
-            color: white;
-            border: none;
-            border-radius: 0.5vw;
-            cursor: pointer;
-        }
-
-        .submit-btn:hover {
-            background-color: pink;
-        }
-
-        /* OMR 답안지 컨테이너 */
-        .omr-section {
-            position: fixed;
-            top: 2vh;
-            right: 2vw;
-            width: 18vw;
-            /* 크기를 가변적으로 설정 */
-            height: 85vh;
-            background-color: #fff;
-            border: 0.15vw solid #ddd;
-            border-radius: 0.5vw;
-            padding: 1.5vh;
-            overflow-y: auto;
-            box-shadow: 0.2vw 0.2vw 1vw rgba(0, 0, 0, 0.1);
-            text-align: center;
-        }
-
-        /* OMR 헤더 */
-        .fixed-header {
-            margin: 2px 0px 20px 0px;
-            position: sticky;
-            top: -10px;
-            background: white;
-            padding: 10px;
-            border-bottom: 2px solid #ddd;
-            z-index: 10;
-        }
-
-        .omr-sheet {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .omr-row {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin: 5px 0;
-        }
-
-        .omr-question {
-            font-weight: bold;
-            cursor: pointer;
-            margin-right: 10px;
-            color: deeppink;
-        }
-
-        .omr-question:hover {
-            text-decoration: underline;
-        }
-
-        .omr-option {
-            margin: 0 5px;
-            cursor: pointer;
-            width: 25px;
-            height: 25px;
-            border-radius: 50%;
-            border: 2px solid deeppink;
-            text-align: center;
-            line-height: 25px;
-            font-weight: bold;
-        }
-
-        .selected {
-            background-color: deeppink;
-            color: white;
-        }
-
-        /* 제출하기 버튼 */
-        .submit {
-            position: fixed;
-            bottom: 0px;
-            right: 20px;
-            width: 300px;
-            height: 6vh;
-            border-radius: 5px;
-            padding: 10px;
-        }
-
-        .submit-btn {
-            width: 100%;
-            padding: 1vh;
-            background-color: deeppink;
-            color: white;
-            border: none;
-            border-radius: 0.5vw;
-            font-size: 1.2rem;
-            cursor: pointer;
-        }
-
-        .submit-btn:hover {
-            background-color: pink;
-        }
-
-        /* 📌 반응형 추가 */
-        @media screen and (max-width: 1024px) {
-            .omr-section {
-                width: 22vw;
-            }
-
-            .omr-option {
-                width: 3vw;
-                height: 3vw;
-                line-height: 3vw;
-                font-size: 0.9rem;
-            }
-
-            .submit {
-                width: 20vw;
-            }
-        }
-
-        .timer {
-            position: fixed;
-            top: 17px;
-            left: 72%;
-            transform: translateX(-50%);
-            font-size: 15px;
-            font-weight: bold;
-            background: white;
-            padding: 10px 20px;
-            border-radius: 10px;
-            border: 1px solid #E3E3E3;
-        }
-    </style>
+    <link rel="stylesheet" href="Exam.css">
 </head>
 
 <body>
@@ -197,18 +13,27 @@
         <h1>2025년도 제 1회 정보처리기사 문제</h1>
         <div id="exam-container">Loading...</div>
     </div>
+
     <div class="omr-section">
         <h2 class="fixed-header" style="text-align: center; font-size: 35px;">답 안 지</h2>
         <div id="omr-container" class="omr-sheet"></div>
     </div>
+
     <div class="submit">
         <button class="submit-btn" onclick="submitAnswers()">제출하기</button>
     </div>
+
     <div class="timer" id="timer">
         남은 시간 : <span id="time-left">60:00</span>
     </div>
 
+    <div id="unanswered-box" class="unanswered-box">
+        <span id="unanswered-count">안 푼 문제: 0</span>
+    </div>
+
+
     <script>
+        // 타이머 
         let timeLeft = 60 * 60; // 30분 (초 단위)
         let timerInterval;
 
@@ -250,6 +75,21 @@
             window.location.href = "result.html";
         }
 
+        // 안푼문제 리스트
+        function updateUnansweredCount() {
+            const unansweredCount = document.getElementById("unanswered-count");
+
+            let unanswered = questions.filter(q => {
+                return !document.querySelector(`input[name="question-${q.id}"]:checked`);
+            }).length;
+
+            unansweredCount.innerText = unanswered > 0 ? `안 푼 문제: ${unanswered}` : "안 푼 문제 없음";
+        }
+
+
+
+
+        // json 파일 불러오기
         let questions = [];
 
         async function loadQuestions() {
@@ -264,6 +104,7 @@
             }
         }
 
+        // 시험문제 출력
         function renderQuestions() {
             const examContainer = document.getElementById("exam-container");
             examContainer.innerHTML = "";
@@ -287,6 +128,8 @@
             });
         }
 
+
+        // omr 출력
         function renderOMR() {
             const omrContainer = document.getElementById("omr-container");
             omrContainer.innerHTML = "";
@@ -306,19 +149,30 @@
             });
         }
 
+        // 시험문제 radio랑 omr 단추 연동
         function updateOMR(questionIndex, selectedIndex) {
+            // OMR에서 기존 선택 해제
             for (let i = 0; i < questions[questionIndex].options.length; i++) {
                 document.getElementById(`omr-${questionIndex}-${i}`).classList.remove("selected");
             }
+
+            // 새 선택 표시
             document.getElementById(`omr-${questionIndex}-${selectedIndex}`).classList.add("selected");
 
+            // 라디오 버튼 값 설정
             const radios = document.getElementsByName(`question-${questions[questionIndex].id}`);
-            radios[selectedIndex].checked = true;
+            if (radios[selectedIndex]) {
+                radios[selectedIndex].checked = true;
+            }
+
+            updateUnansweredCount(); // 안 푼 문제 개수 업데이트
         }
+
 
         function selectOMR(questionIndex, selectedIndex) {
             updateOMR(questionIndex, selectedIndex);
         }
+
 
         function scrollToQuestion(index) {
             const questionElement = document.getElementById(`question-${index}`);
@@ -343,7 +197,10 @@
             window.location.href = "result.html";
         }
 
-        loadQuestions();
+        loadQuestions().then(() => {
+            updateUnansweredCount();
+        });
+
     </script>
 </body>
 
