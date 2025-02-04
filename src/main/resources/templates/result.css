@@ -1,0 +1,52 @@
+body {
+    background-color: #FFF1FA;
+    font-family: Arial, sans-serif;
+    margin: 2vh 2vw 2vh 3vw;
+}
+
+.container h1 {
+
+}
+
+.correctanswer {
+    margin: 30px 0px;
+    background-color: #ffffff;
+    border: 0.1vw solid #ddd;
+    border-radius: 0.5vw;
+
+}
+
+.correctanswer h2 {
+    margin: 30px;
+}
+
+.correctanswer ul {
+    margin: 20px;
+}
+
+.wronganswer {
+    margin: 30px 0px;
+    background-color: #ffffff;
+    border: 0.1vw solid #ddd;
+    border-radius: 0.5vw;
+
+}
+
+.wronganswer h2 {
+    margin: 30px;
+}
+
+.wronganswer ul {
+    margin: 20px;
+}
+
+.container button {
+    font-size: 15px;
+    font-weight: bold;
+    padding: 1.5vh;
+    background-color: deeppink;
+    color: white;
+    border: none;
+    border-radius: 0.5vw;
+    cursor: pointer;
+}
