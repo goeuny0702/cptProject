@@ -50,3 +50,10 @@ body {
     border-radius: 0.5vw;
     cursor: pointer;
 }
+
+.pl {
+    margin-bottom: 1%;
+    border: 3px solid pink;
+    padding: 15px;
+
+}

@@ -30,9 +30,12 @@
         results.forEach(result => {
             const listItem = document.createElement("li");
             listItem.innerHTML = `
-                <strong>${result.question}</strong> <br>
-                <span>✅ 정답: ${result.correctAnswer}</span> <br>
-                <span>📝 내 답: ${result.selectedAnswer}</span>
+                <div class="pl">
+                    <strong>${result.question}</strong> <br>
+                    <span>✅ 정답: ${result.correctAnswer}</span> <br>
+                    <span>📝 내 답: ${result.selectedAnswer}</span>    
+                </div>
+                
             `;
 
             if (result.isCorrect) {

@@ -84,7 +84,7 @@
                 return !document.querySelector(`input[name="question-${q.id}"]:checked`);
             }).length;
 
-            unansweredCount.innerText = unanswered > 0 ? `안 푼 문제: ${unanswered}` : "안 푼 문제 없음";
+            unansweredCount.innerText = unanswered > 0 ? `안 푼 문제 : ${unanswered}` : "안 푼 문제 없음";
         }
 
 
@@ -211,6 +211,7 @@
                 window.location.href = "retry.html";
             }
         }
+
 
 
         loadQuestions().then(() => {
