@@ -24,6 +24,15 @@
 
     }
 
+    .passtext {
+
+    }
+
+    .passtext h1 {
+        font-size: 20px;
+        
+    }
+
     .btnContainer {
         margin-top: 20px;
         display: flex;
@@ -43,6 +52,32 @@
         cursor: pointer;
         transition: 0.3s;
     }
+
+    .btnContainer button:hover {
+        background-color: pink;
+    }
+
+    .movement {
+        width: 100%;
+        margin-top: -15%;
+        position: relative;
+    }
+
+    .movement .good1 {
+        width: 30%;
+        position: absolute;
+        left: 0;
+        top: 50%;
+        transform: translateY(-38%);
+    }
+
+    .movement .good2 {
+        width: 30%;
+        position: absolute;
+        right: 0;
+        top: 50%;
+        transform: translateY(-38%);
+    }
 </style>
 
 <body>
@@ -50,10 +85,17 @@
         <div class="passimg" data-aos="zoom-out">
             <img src="images/pass.png" alt="pass">
         </div>
+        <div class="passtext">
+            <h1>고은님 100점으로 합격을 축하드립니다.</h1>
+        </div>
         <div class="btnContainer">
             <button class="submit-btn" onclick="gotoExam()">풀이보기</button>
             <button class="submit-btn" onclick="retryMain()">다시풀기</button>
         </div>
+    </div>
+    <div class="movement">
+        <img class="good1" src="images/good4.gif" alt="good">
+        <img class="good2" src="images/good4.gif" alt="good">
     </div>
     <script>
         AOS.init();

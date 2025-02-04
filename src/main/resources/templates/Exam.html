@@ -9,24 +9,25 @@
 </head>
 
 <body>
+    <!-- 시험 문제제 -->
     <div class="exam-section">
         <h1>2025년도 제 1회 정보처리기사 문제</h1>
         <div id="exam-container">Loading...</div>
     </div>
-
+    <!-- omr 답안지지 -->
     <div class="omr-section">
         <h2 class="fixed-header" style="text-align: center; font-size: 35px;">답 안 지</h2>
         <div id="omr-container" class="omr-sheet"></div>
     </div>
-
+    <!-- 제출하기 버튼튼 -->
     <div class="submit">
         <button class="submit-btn" onclick="submitAnswers()">제출하기</button>
     </div>
-
+    <!-- 남은시간 타이머머 -->
     <div class="timer" id="timer">
         남은 시간 : <span id="time-left">60:00</span>
     </div>
-
+    <!-- 안푼문제 -->
     <div id="unanswered-box" class="unanswered-box">
         <span id="unanswered-count">안 푼 문제: 0</span>
     </div>
@@ -182,6 +183,8 @@
         }
 
         function submitAnswers() {
+            clearInterval(timerInterval); // 타이머 정지
+
             const results = questions.map(q => {
                 const selected = document.querySelector(`input[name="question-${q.id}"]:checked`);
                 return {
@@ -193,9 +196,22 @@
                 };
             });
 
+            // 점수 계산 (맞은 개수 * 2점)
+            const correctAnswers = results.filter(r => r.isCorrect).length;
+            const totalScore = correctAnswers * 2;
+
+            // 결과 저장
             localStorage.setItem("examResults", JSON.stringify(results));
-            window.location.href = "result.html";
+            localStorage.setItem("examScore", totalScore); // 점수 저장
+
+            // 60점 이상이면 합격 페이지로, 그렇지 않으면 불합격 페이지로 이동
+            if (totalScore >= 60) {
+                window.location.href = "pass.html";
+            } else {
+                window.location.href = "retry.html";
+            }
         }
+
 
         loadQuestions().then(() => {
             updateUnansweredCount();
