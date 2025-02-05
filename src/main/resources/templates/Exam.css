@@ -30,32 +30,6 @@ body {
     margin-bottom: 0.5vh;
 }
 
-/* 제출하기 버튼 */
-.submit {
-    position: fixed;
-    bottom: 5vh;
-    right: 2vw;
-    width: 18vw;
-    /* 화면 크기에 따라 조정 */
-    height: 6vh;
-    border-radius: 0.5vw;
-    padding: 1vh;
-}
-
-.submit-btn {
-    width: 100%;
-    padding: 1vh;
-    background-color: deeppink;
-    color: white;
-    border: none;
-    border-radius: 0.5vw;
-    cursor: pointer;
-}
-
-.submit-btn:hover {
-    background-color: pink;
-}
-
 /* OMR 답안지 컨테이너 */
 .omr-section {
     position: fixed;
