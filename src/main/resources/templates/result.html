@@ -20,10 +20,19 @@
         <h2>❌ 오답 리스트</h2>
         <div id="incorrect-list"></div>
 
-        <button onclick="retryExam()" style="margin-top: 20px;">다시 시험 보기</button>
+        <button class="retrybutton" onclick="retryExam()" style="margin-top: 20px;">다시 시험 보기</button>
+
+        <button class="homebutton" onclick="home()"><svg xmlns="http://www.w3.org/2000/svg" height="50px"
+            viewBox="0 -960 960 960" width="50px" fill="#5f6368">
+            <path d="M160-120v-480l320-240 320 240v480H560v-280H400v280H160Z" />
+        </svg></button>
     </div>
 
     <script>
+        function home() {
+            window.location.href = "home.html";
+        }
+
         // 저장된 결과 데이터 가져오기
         const results = JSON.parse(localStorage.getItem("examResults") || "[]");
 
