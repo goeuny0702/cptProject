@@ -192,7 +192,8 @@
                     question: q.question,
                     selectedAnswer: selected ? q.options[parseInt(selected.value)] : "선택 안함",
                     correctAnswer: q.options[q.correct - 1],
-                    isCorrect: selected ? parseInt(selected.value) === q.correct - 1 : false
+                    isCorrect: selected ? parseInt(selected.value) === q.correct - 1 : false,
+                    solution: q.solution || "풀이 정보가 없습니다."
                 };
             });
 
