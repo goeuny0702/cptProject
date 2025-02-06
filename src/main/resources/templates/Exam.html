@@ -19,18 +19,23 @@
         <h2 class="fixed-header" style="text-align: center; font-size: 35px;">답 안 지</h2>
         <div id="omr-container" class="omr-sheet"></div>
     </div>
+
     <!-- 제출하기 버튼튼 -->
     <div class="submit">
         <button class="submit-btn" onclick="submitAnswers()">제출하기</button>
     </div>
-    <!-- 남은시간 타이머머 -->
-    <div class="timer" id="timer">
-        남은 시간 : <span id="time-left">60:00</span>
+
+    <div class="total-container">
+        <!-- 남은시간 타이머머 -->
+        <div class="timer" id="timer">
+            남은 시간 : <span id="time-left">60:00</span>
+        </div>
+        <!-- 안푼문제 -->
+        <div id="unanswered-box" class="unanswered-box">
+            <span id="unanswered-count">안 푼 문제: 0</span>
+        </div>
     </div>
-    <!-- 안푼문제 -->
-    <div id="unanswered-box" class="unanswered-box">
-        <span id="unanswered-count">안 푼 문제: 0</span>
-    </div>
+
 
 
     <script>

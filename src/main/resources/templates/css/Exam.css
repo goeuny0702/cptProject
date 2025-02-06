@@ -50,7 +50,7 @@ body {
 .fixed-header {
     margin: 2px 0px 20px 0px;
     position: sticky;
-    top: -15px;
+    top: -20px;
     background: white;
     padding: 10px;
     border-bottom: 2px solid #ddd;
@@ -102,9 +102,9 @@ body {
 /* 제출하기 버튼 */
 .submit {
     position: fixed;
-    bottom: 0px;
-    right: 20px;
-    width: 300px;
+    bottom: 0%;
+    right: 1.4%;
+    width: 19.5vw;
     height: 6vh;
     border-radius: 5px;
     padding: 10px;
@@ -143,12 +143,17 @@ body {
     }
 }
 
-/* 타이머 추가 */
-.timer {
+.total-container {
+    text-align: center;
+    top: 2vh;
+    left: 67%;
     position: fixed;
-    top: 2%;
-    left: 72%;
-    transform: translateX(-50%);
+}
+
+/* 타이머 추가 */
+.total-container .timer {
+    width: 8%;
+    position: fixed;
     font-size: 15px;
     font-weight: bold;
     background: white;
@@ -158,10 +163,8 @@ body {
 }
 
 /* 안푼문제 추가 */
-.unanswered-box {
-    width: 111px;
-    top: 10%;
-    left: 67%;
+.total-container .unanswered-box {
+    width: 8%;
     position: fixed;
     font-size: 15px;
     font-weight: bold;
@@ -170,4 +173,6 @@ body {
     border-radius: 10px;
     border: 1px solid #E3E3E3;
     text-align: center;
+    top: calc(4vh + 40px);
+    /* timer의 높이를 고려하여 위치 지정 */
 }
