@@ -35,7 +35,11 @@
         function goToYearPage() {
             const subject = document.getElementById("subjectSelect").value;
             localStorage.setItem("selectedSubject", subject); // 과목 저장
-            window.location.href = "year_select.html"; // 연도 선택 페이지로 이동
+            if (subject) {
+                window.location.href = "year_select.html"; // 문제 페이지로 이동
+            } else {
+                alert("과목을 먼저 선택해주세요.");
+            }
         }
     </script>
 
