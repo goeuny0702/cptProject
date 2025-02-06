@@ -5,118 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>백호의 발톱 CBT 응시생 합격자 명단</title>
-    <style>
-        body {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            background-color: #FFF1FA;
-            font-family: Arial, sans-serif;
-            margin: 20px;
-            padding: 0;
-        }
-
-        .header {
-            width: 100%;
-            margin: 20px;
-
-        }
-
-        .header .header-text {
-            text-align: center;
-            /* margin-bottom: 20px; */
-            font-size: 12px;
-
-        }
-
-        .header .header-text h1 {
-            font-size: 40px;
-            margin: 10px;
-        }
-
-        .header .header-text p {
-            font-size: 17px;
-            margin: 5px;
-        }
-
-        .header .header-img {
-            width: 100%;
-            position: relative;
-
-        }
-
-        .header .header-img .winner1 {
-            width: 10%;
-            position: absolute;
-            left: 20%;
-            top: 50%;
-            transform: translateY(-100%);
-        }
-
-        .header .header-img .winner2 {
-            width: 10%;
-            position: absolute;
-            right: 20%;
-            top: 50%;
-            transform: translateY(-100%);
-        }
-
-        .main-container {
-            border: 2px solid white;
-            border-radius: 5px;
-            width: 750px;
-            height: 400px;
-            background-color: white;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .img-container {
-            display: flex;
-            flex-direction: column;
-            position: absolute;
-            width: 100%;
-            animation: scrollLoop 20s linear infinite;
-
-        }
-
-        @keyframes scrollLoop {
-            0% {
-                transform: translateY(0);
-            }
-
-            100% {
-                transform: translateY(-50%);
-            }
-
-            /* 절반만 이동 */
-        }
-
-
-        .img-container img {
-            display: block;
-            width: 100%;
-        }
-
-        .button-container {
-            margin-top: 20px;
-        }
-
-        .button-container button {
-            margin: 5px;
-            padding: 10px 15px;
-            border: none;
-            background-color: deeppink;
-            color: white;
-            cursor: pointer;
-            border-radius: 5px;
-            font-size: 16px;
-        }
-
-        .button-container button:hover {
-            background-color: pink;
-        }
-    </style>
+    <link rel="stylesheet" href="css/home.css">
 </head>
 
 <body>
@@ -145,10 +34,86 @@
         <button class="button1" onclick="nonmember()">비회원 이용</button>
     </div>
 
+    <!-- 챗봇 버튼 -->
+    <button id="chatbotButton">💬</button>
+
+    <!-- 챗봇 창 -->
+    <div id="chatbotContainer">
+        <div id="chatbotHeader">
+            FAQ 챗봇
+            <button id="closeChatbot">✖</button>
+        </div>
+        <div id="chatbox"></div>
+        <div id="questionButtons"></div>
+    </div>
+
     <script>
         function nonmember() {
             window.location.href = "name.html";
         }
+
+        // 미리 정의된 FAQ 데이터
+        const faqData = {
+            "정보처리기사 시험 과목은?": "필기 시험은 5과목(소프트웨어 설계, 데이터베이스 등)으로 구성됩니다.",
+            "정보처리기사 합격 기준은?": "필기는 과목별 40점 이상, 평균 60점 이상이어야 합니다.",
+            "실기 시험은 어떤 방식인가요?": "SQL 작성 및 서술형 문제로 출제됩니다.",
+            "정보처리기능사 시험은 CBT 방식인가요?": "네, 필기 시험은 CBT(컴퓨터 기반 시험) 방식입니다.",
+            "기사, 산업기사, 기능사의 차이점은?": "기사(대졸), 산업기사(초대졸), 기능사(고졸) 수준의 시험입니다.",
+            "필기 시험 유효 기간은?": "필기 합격 후 2년 이내에 실기를 통과해야 합니다.",
+            "실기 시험에서 중요한 부분은?": "SQL 작성과 시스템 개발 관련 문제가 중요한 비중을 차지합니다.",
+            "필기 시험 문제 수와 시간은?": "필기는 총 100문제, 시험 시간은 150분입니다.",
+            "CBT 시험 결과 확인 시점은?": "필기 시험은 즉시 확인 가능하며, 실기는 약 4주 후 발표됩니다.",
+            "시험 준비 추천 교재는?": "CBT 문제풀이 사이트, 기출문제 풀이 앱, 한국산업인력공단 자료를 참고하세요."
+        };
+
+        const chatbotButton = document.getElementById("chatbotButton");
+        const chatbotContainer = document.getElementById("chatbotContainer");
+        const closeChatbot = document.getElementById("closeChatbot");
+        const chatbox = document.getElementById("chatbox");
+        const questionButtons = document.getElementById("questionButtons");
+
+        // 챗봇 버튼 클릭 시 챗봇 창 토글
+        chatbotButton.addEventListener("click", () => {
+            chatbotContainer.style.display = chatbotContainer.style.display === "flex" ? "none" : "flex";
+        });
+
+        // 닫기 버튼 클릭 시 챗봇 창 닫기 + 채팅 초기화
+        closeChatbot.addEventListener("click", () => {
+            chatbotContainer.style.display = "none";
+            chatbox.innerHTML = ""; // 채팅 메시지 초기화
+        });
+
+        // 질문 버튼 생성
+        function createQuestionButtons() {
+            Object.keys(faqData).forEach(question => {
+                const button = document.createElement("button");
+                button.classList.add("question");
+                button.textContent = question;
+                button.onclick = () => displayChat(question, faqData[question]);
+                questionButtons.appendChild(button);
+            });
+        }
+
+        // 채팅 말풍선 추가
+        function displayChat(question, answer) {
+            // 사용자 질문 추가
+            const userMessage = document.createElement("div");
+            userMessage.classList.add("message", "user");
+            userMessage.innerHTML = `<div class="bubble">${question}</div>`;
+            chatbox.appendChild(userMessage);
+
+            // 챗봇 답변 추가 (약간의 딜레이)
+            setTimeout(() => {
+                const botMessage = document.createElement("div");
+                botMessage.classList.add("message", "bot");
+                botMessage.innerHTML = `<div class="bubble">${answer}</div>`;
+                chatbox.appendChild(botMessage);
+                chatbox.scrollTop = chatbox.scrollHeight; // 스크롤 자동 이동
+            }, 500);
+        }
+
+        // 초기 버튼 생성
+        createQuestionButtons();
     </script>
 </body>
 

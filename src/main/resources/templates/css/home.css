@@ -1,0 +1,224 @@
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #FFF1FA;
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    padding: 0;
+}
+
+.header {
+    width: 100%;
+    margin: 20px;
+
+}
+
+.header .header-text {
+    text-align: center;
+    /* margin-bottom: 20px; */
+    font-size: 12px;
+
+}
+
+.header .header-text h1 {
+    font-size: 40px;
+    margin: 10px;
+}
+
+.header .header-text p {
+    font-size: 17px;
+    margin: 5px;
+}
+
+.header .header-img {
+    width: 100%;
+    position: relative;
+
+}
+
+.header .header-img .winner1 {
+    width: 10%;
+    position: absolute;
+    left: 20%;
+    top: 50%;
+    transform: translateY(-100%);
+}
+
+.header .header-img .winner2 {
+    width: 10%;
+    position: absolute;
+    right: 20%;
+    top: 50%;
+    transform: translateY(-100%);
+}
+
+.main-container {
+    border: 2px solid white;
+    border-radius: 5px;
+    width: 750px;
+    height: 400px;
+    background-color: white;
+    position: relative;
+    overflow: hidden;
+}
+
+.img-container {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    width: 100%;
+    animation: scrollLoop 20s linear infinite;
+
+}
+
+@keyframes scrollLoop {
+    0% {
+        transform: translateY(0);
+    }
+
+    100% {
+        transform: translateY(-50%);
+    }
+
+    /* 절반만 이동 */
+}
+
+
+.img-container img {
+    display: block;
+    width: 100%;
+}
+
+.button-container {
+    margin-top: 20px;
+}
+
+.button-container button {
+    margin: 5px;
+    padding: 10px 15px;
+    border: none;
+    background-color: deeppink;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.button-container button:hover {
+    background-color: pink;
+}
+
+/* 챗봇 버튼 스타일 */
+#chatbotButton {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 60px;
+    height: 60px;
+    background-color: deeppink;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    font-size: 24px;
+    cursor: pointer;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+#chatbotButton:hover {
+    background-color: pink;
+}
+
+/* 챗봇 창 스타일 */
+#chatbotContainer {
+    position: fixed;
+    bottom: 90px;
+    right: 20px;
+    width: 300px;
+    height: 400px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    display: none;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+/* 챗봇 헤더 */
+#chatbotHeader {
+    background: deeppink;
+    color: white;
+    padding: 10px;
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+    position: relative;
+}
+
+/* 닫기 버튼 */
+#closeChatbot {
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 18px;
+    color: white;
+    cursor: pointer;
+}
+
+/* 챗봇 내용 (채팅 메시지) */
+#chatbox {
+    flex: 1;
+    padding: 10px;
+    overflow-y: auto;
+    background: #f9f9f9;
+}
+
+.message {
+    display: flex;
+    align-items: center;
+    margin: 5px 0;
+}
+.user {
+    justify-content: flex-end;
+}
+.bot {
+    justify-content: flex-start;
+}
+.bubble {
+    padding: 10px;
+    border-radius: 15px;
+    max-width: 70%;
+    word-wrap: break-word;
+}
+.user .bubble {
+    background: deeppink;
+    color: white;
+}
+.bot .bubble {
+    background: #e0e0e0;
+    color: black;
+}
+
+/* 질문 버튼 목록 (스크롤 가능) */
+#questionButtons {
+    padding: 10px;
+    background: white;
+    border-top: 1px solid #ddd;
+    max-height: 150px; /* 최대 높이 설정 */
+    overflow-y: auto; /* 버튼 개수가 많아지면 스크롤 */
+}
+button.question {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+    border: none;
+    background-color: deeppink;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+}
+button.question:hover {
+    background-color: pink;
+}
