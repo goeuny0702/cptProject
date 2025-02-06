@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Exam Application</title>
-    <link rel="stylesheet" href="Exam.css">
+    <link rel="stylesheet" href="css/Exam.css">
 </head>
 
 <body>
@@ -95,7 +95,7 @@
 
         async function loadQuestions() {
             try {
-                const response = await fetch("questions.json");
+                const response = await fetch("json/questions.json");
                 questions = await response.json();
                 renderQuestions();
                 renderOMR();
