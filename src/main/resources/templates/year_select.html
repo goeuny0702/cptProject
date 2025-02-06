@@ -8,21 +8,22 @@
 </head>
 <body>
     <div class="home-button2">
-        <button class="homebutton2" onclick="home()"><svg xmlns="http://www.w3.org/2000/svg" height="50px"
-                viewBox="0 -960 960 960" width="50px" fill="#5f6368">
+        <button class="homebutton2" onclick="home()">
+            <svg xmlns="http://www.w3.org/2000/svg" height="50px" viewBox="0 -960 960 960" width="50px" fill="#5f6368">
                 <path d="M160-120v-480l320-240 320 240v480H560v-280H400v280H160Z" />
-            </svg></button>
+            </svg>
+        </button>
     </div>
 
     <div class="container">
         <h2>연도를 선택하세요</h2>
-        <select id="subjectSelect">
-            <option value="">과목을 선택하세요</option>
-            <option value="정보처리기사">정보처리기사</option>
-            <option value="정보처리산업기사">정보처리산업기사</option>
-            <option value="정보처리기능사">정보처리기능사</option>
+        <select id="yearSelect">  <!-- 여기 id 수정 -->
+            <option value="">연도를 선택하세요</option>
+            <option value="2025년 3월">2025년 3월</option>
+            <option value="2025년 6월">2025년 6월</option>
+            <option value="2025년 9월">2025년 9월</option>
         </select>
-        <button class="start-btn" onclick="startExam()">시험 시작</button>
+        <button class="start-btn" onclick="goToExamPage()">시험 시작</button>
     </div>
 
     <script>
@@ -30,14 +31,21 @@
             window.location.href = "home.html";
         }
 
-        function startExam() {
-            const subject = document.getElementById("subjectSelect").value;
+        function goToExamPage() {
+            const year = document.getElementById("yearSelect").value; // 여기 id 수정
+            const subject = localStorage.getItem("selectedSubject"); // 저장된 과목 가져오기
+            localStorage.setItem("selectedYear", year); // 연도 저장
+
+            if (!year) {
+                alert("연도를 선택해주세요!");
+                return;
+            }
 
             if (subject) {
-                localStorage.setItem("selectedSubject", subject); // 선택한 과목 저장
-                window.location.href = "exam.html"; // 시험 페이지로 이동
+                window.location.href = "Exam.html"; // 문제 페이지로 이동
             } else {
-                alert("과목을 선택해주세요!");
+                alert("과목을 먼저 선택해주세요!");
+                window.location.href = "subject.html"; // 과목 선택 페이지로 다시 이동
             }
         }
     </script>
