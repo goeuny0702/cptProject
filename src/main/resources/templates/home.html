@@ -75,6 +75,7 @@
         // 챗봇 버튼 클릭 시 챗봇 창 토글
         chatbotButton.addEventListener("click", () => {
             chatbotContainer.style.display = chatbotContainer.style.display === "flex" ? "none" : "flex";
+            displayChat("안녕","무엇을 도와드릴까요?")
         });
 
         // 닫기 버튼 클릭 시 챗봇 창 닫기 + 채팅 초기화
