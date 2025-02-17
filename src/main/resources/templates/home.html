@@ -126,12 +126,12 @@
                     ]
                 },
                 "관련 산업 동향": {
-                    "IT 산업" : "지속적인 성장 중, AI 및 클라우드 기술 수요 증가 등이 있습니다.",
-                    "소프트웨어 개발" : "프로그래밍 언어, 프레임워크 관련 기술 발전 등이 있습니다.",
-                    "네트워크 엔지니어" : "5G 및 IoT 관련 기술로 수요 확대 등이 있습니다."
+                    "IT 산업": "지속적인 성장 중, AI 및 클라우드 기술 수요 증가 등이 있습니다.",
+                    "소프트웨어 개발": "프로그래밍 언어, 프레임워크 관련 기술 발전 등이 있습니다.",
+                    "네트워크 엔지니어": "5G 및 IoT 관련 기술로 수요 확대 등이 있습니다."
                 }
-                    
-                
+
+
             }
         };
 
@@ -214,6 +214,7 @@
         }
 
         function displayCategoryQuestions(category, backTo) {
+
             const botMessage = document.createElement("div");
             botMessage.classList.add("message", "bot");
 
@@ -221,7 +222,11 @@
             bubble.classList.add("bubble");
 
             const textContainer = document.createElement("div");
+
+            displayChat(category); // 선택한 질문을 사용자 메시지로 보여주기
+
             textContainer.textContent = `${category}에 대한 질문들입니다.`;
+
             textContainer.style.padding = "7px";
             bubble.appendChild(textContainer);
 
@@ -235,11 +240,13 @@
                 subjectButton.classList.add("question-option");
                 subjectButton.textContent = subject;
                 subjectButton.onclick = () => {
-                    displaySubjectQuestions(category, subject, backTo);
+                    // 사용자 메시지 표시
+                    displaySubjectQuestions(category, subject, backTo); // 해당 과목의 질문들로 이동
                     scrollToBottom(); // 자동 스크롤
                 };
                 buttonContainer.appendChild(subjectButton);
             });
+
 
             // 뒤로가기 버튼 추가
             const backButton = document.createElement("button");
@@ -266,7 +273,11 @@
             bubble.classList.add("bubble");
 
             const textContainer = document.createElement("div");
+
+            displayChat(subject); // 선택한 질문을 사용자 메시지로 보여주기
+
             textContainer.textContent = `${subject}에 대한 질문들입니다.`;
+
             textContainer.style.padding = "7px";
             bubble.appendChild(textContainer);
 
@@ -280,7 +291,12 @@
                     const questionButton = document.createElement("button");
                     questionButton.classList.add("question-option");
                     questionButton.textContent = question;
-                    questionButton.onclick = () => displayChat(question, questions.find(q => q === question));
+                    questionButton.onclick = () => {
+                        // 사용자 질문 표시
+                        displayChat(question); // 선택한 질문을 사용자 메시지로 보여주기
+                        displayChat(question, questions.find(q => q === question)); // 챗봇의 답변도 함께 표시
+                        scrollToBottom(); // 자동 스크롤
+                    };
                     buttonContainer.appendChild(questionButton);
                 });
             } else {
@@ -288,10 +304,15 @@
                     const questionButton = document.createElement("button");
                     questionButton.classList.add("question-option");
                     questionButton.textContent = question;
-                    questionButton.onclick = () => displayChat(question, questions[question]);
+                    questionButton.onclick = () => {
+                        // 사용자 질문 표시
+                        displayChat(question, questions[question]); // 챗봇의 답변도 함께 표시
+                        scrollToBottom(); // 자동 스크롤
+                    };
                     buttonContainer.appendChild(questionButton);
                 });
             }
+
 
             // 뒤로가기 버튼 추가
             const backButton = document.createElement("button");
@@ -329,14 +350,17 @@
             chatbox.appendChild(userMessage);
 
             // 챗봇 답변 표시 (0.5초 후에 나타남)
-            setTimeout(() => {
-                const botMessage = document.createElement("div");
-                botMessage.classList.add("message", "bot");
-                botMessage.innerHTML = `<div class="bubble">${answer}</div>`;
-                chatbox.appendChild(botMessage);
-                chatbox.scrollTop = chatbox.scrollHeight;
-            }, 500);
+            if (answer) {
+                setTimeout(() => {
+                    const botMessage = document.createElement("div");
+                    botMessage.classList.add("message", "bot");
+                    botMessage.innerHTML = `<div class="bubble">${answer}</div>`;
+                    chatbox.appendChild(botMessage);
+                    chatbox.scrollTop = chatbox.scrollHeight;
+                }, 500);
+            }
         }
+
 
     </script>
 
