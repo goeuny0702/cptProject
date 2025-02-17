@@ -52,7 +52,6 @@
             window.location.href = "name.html";
         }
 
-        // 미리 정의된 FAQ 데이터
         const faqData = {
             "정보처리기사 시험 과목은?": "필기 시험은 5과목(소프트웨어 설계, 데이터베이스 등)으로 구성됩니다.",
             "정보처리기사 합격 기준은?": "필기는 과목별 40점 이상, 평균 60점 이상이어야 합니다.",
@@ -70,52 +69,76 @@
         const chatbotContainer = document.getElementById("chatbotContainer");
         const closeChatbot = document.getElementById("closeChatbot");
         const chatbox = document.getElementById("chatbox");
-        const questionButtons = document.getElementById("questionButtons");
 
-        // 챗봇 버튼 클릭 시 챗봇 창 토글
         chatbotButton.addEventListener("click", () => {
             chatbotContainer.style.display = chatbotContainer.style.display === "flex" ? "none" : "flex";
-            displayChat("안녕","무엇을 도와드릴까요?")
+            chatbox.innerHTML = ""; // 초기화
+
+            // "안녕" 사용자 메시지 추가
+            const userMessage = document.createElement("div");
+            userMessage.classList.add("message", "user");
+            userMessage.innerHTML = `<div class="bubble">안녕</div>`;
+            chatbox.appendChild(userMessage);
+
+            // 0.5초 후 챗봇 응답 추가
+            setTimeout(() => {
+                displayChatWithOptions("무엇을 도와드릴까요?", Object.keys(faqData));
+            }, 500);
         });
 
-        // 닫기 버튼 클릭 시 챗봇 창 닫기 + 채팅 초기화
+
+
         closeChatbot.addEventListener("click", () => {
             chatbotContainer.style.display = "none";
-            chatbox.innerHTML = ""; // 채팅 메시지 초기화
+            chatbox.innerHTML = "";
         });
 
-        // 질문 버튼 생성
-        function createQuestionButtons() {
-            Object.keys(faqData).forEach(question => {
+        function displayChatWithOptions(question, options) {
+            const botMessage = document.createElement("div");
+            botMessage.classList.add("message", "bot");
+
+            const bubble = document.createElement("div");
+            bubble.classList.add("bubble");
+
+            const textContainer = document.createElement("div");
+            textContainer.textContent = question;
+            bubble.appendChild(textContainer);
+
+            const buttonContainer = document.createElement("div");
+            buttonContainer.classList.add("button-group");
+
+            options.forEach(option => {
                 const button = document.createElement("button");
-                button.classList.add("question");
-                button.textContent = question;
-                button.onclick = () => displayChat(question, faqData[question]);
-                questionButtons.appendChild(button);
+                button.classList.add("question-option");
+                button.textContent = option;
+                button.onclick = () => displayChat(option, faqData[option]);
+                buttonContainer.appendChild(button);
             });
+
+            bubble.appendChild(buttonContainer);
+            botMessage.appendChild(bubble);
+            chatbox.appendChild(botMessage);
         }
 
-        // 채팅 말풍선 추가
         function displayChat(question, answer) {
-            // 사용자 질문 추가
             const userMessage = document.createElement("div");
             userMessage.classList.add("message", "user");
             userMessage.innerHTML = `<div class="bubble">${question}</div>`;
             chatbox.appendChild(userMessage);
 
-            // 챗봇 답변 추가 (약간의 딜레이)
             setTimeout(() => {
                 const botMessage = document.createElement("div");
                 botMessage.classList.add("message", "bot");
                 botMessage.innerHTML = `<div class="bubble">${answer}</div>`;
                 chatbox.appendChild(botMessage);
-                chatbox.scrollTop = chatbox.scrollHeight; // 스크롤 자동 이동
+                chatbox.scrollTop = chatbox.scrollHeight;
             }, 500);
         }
 
         // 초기 버튼 생성
         createQuestionButtons();
     </script>
+
 </body>
 
 </html>
