@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>문제 저장</title>
+  <style>
+    body {
+      font-family: "Nunito", sans-serif;
+      margin: 20px;
+      background-color: #FFFAF3;
+      /* 따뜻한 크림색 배경 */
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .form-container {
+      max-width: 600px;
+      margin: 20px auto;
+      padding: 20px;
+      border: 5px solid #FF80AB;
+      /* 부드러운 핑크 */
+      border-radius: 16px;
+      /* 둥근 모서리 */
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      background-color: #FFF3F8;
+      position: relative;
+      margin-bottom: 20px;
+    }
+
+    h2 {
+      text-align: center;
+      color: #FF4081;
+      font-size: 20px;
+      font-weight: 600;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+      margin-bottom: 12px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .form-group label {
+      font-weight: bold;
+      color: #FF4081;
+      font-size: 14px;
+      margin-bottom: 3px;
+      display: block;
+    }
+
+    .form-group input[type="text"] {
+      width: 97%;
+      padding: 7px;
+      border: 2px solid #FF80AB;
+      border-radius: 8px;
+      font-size: 12px;
+      transition: 0.3s;
+      background-color: #FFF;
+      outline: none;
+      margin-bottom: 10px;
+    }
+
+    .form-group input[type="text"]:focus {
+      border-color: #FF4081;
+      box-shadow: 0 0 5px rgba(255, 64, 129, 0.4);
+    }
+
+    .btn {
+      padding: 12px 18px;
+      background-color: #FF80AB;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: bold;
+      transition: 0.3s;
+      box-shadow: 0 3px 6px rgba(255, 128, 171, 0.3);
+      display: block;
+      width: 200px;
+      text-align: center;
+      margin: 8px auto;
+    }
+
+    .btn:hover {
+      background-color: #FF4081;
+      transform: scale(1.05);
+    }
+
+    .delete-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      padding: 6px 12px;
+      background-color: #FF4081;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 12px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .delete-btn:hover {
+      background-color: #D81B60;
+    }
+
+    #question-container {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 25px;
+    }
+
+    #add-question-btn,
+    #saveQuestions,
+    #resetQuestions {
+      margin-top: 10px;
+    }
+
+    .backbutton {
+      margin-left: 90%;
+      background-color: #FF4081;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 12px;
+      cursor: pointer;
+      transition: 0.3s;
+      width: 125px;
+      height: 42px;
+
+    }
+
+    .backbutton:hover {
+      background-color: #D81B60;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="question-container">
+    <div class="form-container">
+      <button class="delete-btn">삭제</button>
+      <h2>문제 입력</h2>
+      <form>
+        <div class="form-group">
+          <label for="문제">문제</label>
+          <input type="text" class="question" placeholder="문제를 입력하세요">
+        </div>
+        <div class="form-group">
+          <label>보기</label>
+          <div class="보기">
+            <input type="text" class="option" placeholder="보기 1">
+            <input type="text" class="option" placeholder="보기 2">
+            <input type="text" class="option" placeholder="보기 3">
+            <input type="text" class="option" placeholder="보기 4">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="correctAnswer">정답</label>
+          <input type="text" class="answer" placeholder="정답을 입력하세요">
+        </div>
+        <div class="form-group">
+          <label for="solution">풀이</label>
+          <input type="text" class="solution" placeholder="해설을 입력하세요">
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- 버튼 -->
+  <button class="btn" id="add-question-btn">문제 추가</button>
+  <button type="button" class="btn" id="saveQuestions">문제 저장</button>
+  <button type="button" class="btn" id="resetQuestions">문제 초기화</button>
+
+  <button class="backbutton" onclick="back()">뒤로 가기</button>
+
+  <script>
+    function back() {
+      window.location.href = "result.html";
+    }
+
+    let allQuestions = [];
+
+    // "문제 추가" 버튼 기능
+    document.getElementById("add-question-btn").addEventListener("click", function () {
+      const questionContainer = document.getElementById("question-container");
+      const originalForm = document.querySelector(".form-container");
+
+      // 폼 복사 및 초기화
+      const newForm = originalForm.cloneNode(true);
+      newForm.querySelectorAll("input").forEach(input => input.value = "");
+
+      // 삭제 버튼 이벤트 추가
+      newForm.querySelector(".delete-btn").addEventListener("click", function () {
+        questionContainer.removeChild(newForm);
+      });
+
+      // 새로운 문제 폼 추가
+      questionContainer.appendChild(newForm);
+    });
+
+    // "문제 저장" 버튼 기능
+    document.getElementById("saveQuestions").addEventListener("click", function () {
+      const questionForms = document.querySelectorAll(".form-container");
+      let newQuestions = [];
+
+      questionForms.forEach(form => {
+        const question = form.querySelector(".question").value.trim();
+        const options = Array.from(form.querySelectorAll(".option")).map(input => input.value.trim());
+        const answer = form.querySelector(".answer").value.trim();
+        const solution = form.querySelector(".solution").value.trim();
+
+        // 유효한 데이터만 저장 (질문 필드가 비어있지 않아야 함)
+        if (question) {
+          newQuestions.push({ question, options, answer, solution });
+        }
+      });
+
+      if (newQuestions.length === 0) {
+        alert("저장할 문제가 없습니다!");
+        return;
+      }
+
+      // 기존 문제와 새 문제를 합침
+      allQuestions = [...allQuestions, ...newQuestions];
+
+      // JSON 파일로 저장 (화면에는 표시되지 않음)
+      const blob = new Blob([JSON.stringify(allQuestions, null, 2)], { type: "application/json" });
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = "quizData.json";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+
+      alert("문제가 JSON 파일로 저장되었습니다.");
+
+      // 저장 후 입력 필드 초기화
+      questionForms.forEach(form => {
+        form.querySelectorAll("input").forEach(input => input.value = "");
+      });
+    });
+
+    // "문제 초기화" 버튼 기능
+    document.getElementById("resetQuestions").addEventListener("click", function () {
+      const questionForms = document.querySelectorAll(".form-container");
+
+      // 모든 입력 필드를 초기화
+      questionForms.forEach(form => {
+        form.querySelectorAll("input").forEach(input => input.value = "");
+      });
+
+      alert("현재 작성 중인 문제들이 초기화되었습니다.");
+    });
+
+    // "삭제" 버튼 개별 기능 추가
+    document.querySelectorAll(".delete-btn").forEach(button => {
+      button.addEventListener("click", function () {
+        const parent = button.closest(".form-container");
+        if (parent) {
+          parent.remove();
+        }
+      });
+    });
+
+  </script>
+
+</body>
+
+</html>

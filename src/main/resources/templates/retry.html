@@ -52,6 +52,7 @@
         .btn:hover {
             background-color: pink;
         }
+
         .movement {
             width: 100%;
             margin-top: -15%;
@@ -75,7 +76,8 @@
             top: 50%;
             transform: translateY(-27%);
         }
-        .failtext{
+
+        .failtext {
             font-size: 16px;
         }
     </style>
@@ -107,10 +109,16 @@
 
         const totalScore = localStorage.getItem("examScore");
         const userName = localStorage.getItem("userName") || "이름없음";
+        //아이디 받아오기
+        const savedUserId = localStorage.getItem("userId") || "이름없음";
 
-        document.getElementById("score-display").innerText , 
-        document.getElementById("resultText").textContent = `${userName}님의 점수는 ${totalScore}점으로 불합격입니다.`;
-
+        if (userName) {
+            document.getElementById("score-display").innerText,
+            document.getElementById("resultText").textContent = `${userName}님의 점수는 ${totalScore}점 입니다.`;
+        } else {
+            document.getElementById("score-display").innerText,
+            document.getElementById("resultText").textContent = `${savedUserId}님 의 점수는 ${totalScore}점 입니다.`;
+        }
 
 
 

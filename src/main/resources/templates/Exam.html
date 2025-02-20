@@ -68,25 +68,6 @@
         // 제한시간 시작
         startTimer();
 
-        // 시험 제출 시 타이머 멈추기
-        function submitAnswers() {
-            clearInterval(timerInterval);
-
-            const results = questions.map(q => {
-                const selected = document.querySelector(`input[name="question-${q.id}"]:checked`);
-                return {
-                    id: q.id,
-                    question: q.question,
-                    selectedAnswer: selected ? q.options[parseInt(selected.value)] : "선택 안함",
-                    correctAnswer: q.options[q.correct - 1],
-                    isCorrect: selected ? parseInt(selected.value) === q.correct - 1 : false
-                };
-            });
-
-            localStorage.setItem("examResults", JSON.stringify(results));
-            window.location.href = "result.html";
-        }
-
         // 안푼문제 리스트
         function updateUnansweredCount() {
             const unansweredCount = document.getElementById("unanswered-count");
@@ -242,7 +223,7 @@
         }
 
         function submitAnswers() {
-            clearInterval(timerInterval); // 타이머 정지
+            // clearInterval(timerInterval); // 타이머 정지
 
             const results = questions.map(q => {
                 const selected = document.querySelector(`input[name="question-${q.id}"]:checked`);

@@ -71,6 +71,7 @@ body {
     0% {
         transform: translateY(0);
     }
+
     100% {
         transform: translateY(-50%);
     }
@@ -85,7 +86,8 @@ body {
     margin-top: 20px;
 }
 
-.button-container button, .button-group button {
+.button-container button,
+.button-group button {
     margin: 5px;
     padding: 10px 15px;
     border: none;
@@ -96,9 +98,54 @@ body {
     font-size: 14px;
 }
 
-.button-container button:hover, .button-group button:hover {
+.button-container button:hover,
+.button-group button:hover {
     background-color: pink;
 }
+
+/* 로그인 창 스타일 */
+.login-container {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #FFF;
+    border: 2px solid deeppink;
+    border-radius: 10px;
+    padding: 20px;
+    width: 300px;
+    margin-top: 20px;
+}
+
+.login-container input {
+    margin: 10px 0;
+    padding: 10px;
+    width: 95%;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.login-container button {
+    width: 305px;
+    margin: 5px;
+    padding: 10px 15px;
+    border: none;
+    background-color: deeppink;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.login-container button:hover {
+    background-color: pink;
+}
+
+.login-container .message {
+    margin-top: 10px;
+    font-size: 14px;
+}
+
 
 #chatbotButton {
     position: fixed;
@@ -218,5 +265,3 @@ button.question {
 button.question:hover {
     background-color: pink;
 }
-
-

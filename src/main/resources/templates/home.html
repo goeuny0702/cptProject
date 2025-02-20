@@ -30,9 +30,19 @@
     </div>
 
     <div class="button-container">
-        <button type="button" onclick="member">로그인 하기</button>
+        <button onclick="showLogin()">로그인 하기</button>
         <button class="button1" onclick="nonmember()">비회원 이용</button>
     </div>
+
+    <div class="login-container" id="loginContainer">
+        <h3>로그인</h3>
+        <input type="text" id="username" placeholder="아이디를 입력하세요">
+        <input type="password" id="password" placeholder="비밀번호를 입력하세요">
+        <button onclick="login()">로그인</button>
+        <button onclick="signup()">회원가입</button>
+        <div class="message" id="loginMessage"></div>
+    </div>
+
 
     <!-- 챗봇 버튼 -->
     <button id="chatbotButton">💬</button>
@@ -48,9 +58,68 @@
     </div>
 
     <script>
+
+        const logindata = [
+            { "username": "고은이", "password": "1234" },
+            { "username": "김대원", "password": "1234" },
+            { "username": "조수아", "password": "1234" },
+            { "username": "장윤성", "password": "1234" },
+            { "username": "고은123", "password": "1212" }
+        ];
+
+        // 로그인 창 보이기
+        function showLogin() {
+            const loginContainer = document.getElementById('loginContainer');
+            loginContainer.style.display = (loginContainer.style.display === 'flex') ? 'none' : 'flex';
+        }
+
+        // 회원가입 페이지 이동
+        function signup() {
+            window.location.href = "join.html";
+        }
+
+        // 비회원 이용
         function nonmember() {
             window.location.href = "name.html";
         }
+
+        // 로그인 함수 (logindata를 직접 사용)
+        function login() {
+            const userId = document.getElementById("username").value.trim();
+            const password = document.getElementById("password").value.trim();
+
+            if (!userId || !password) {
+                alert("아이디와 비밀번호를 입력하세요!");
+                return;
+            }
+
+            console.log("입력된 아이디:", userId);
+            console.log("입력된 비밀번호:", password);
+            console.log("저장된 사용자 목록:", logindata); // 콘솔에서 데이터 확인
+
+            // 사용자 인증 확인
+            const user = logindata.find(user => user.username === userId && user.password === password);
+
+            if (!user) {
+                alert("아이디 또는 비밀번호가 올바르지 않습니다.");
+                return;
+            }
+
+            // 로그인 성공 시 userId 저장
+            localStorage.setItem("userId", userId);
+            alert(`${userId}님, 로그인 성공!`);
+            window.location.href = "subject_select.html"; // 로그인 후 이동할 페이지
+        }
+
+        // 로그인한 사용자 이름 표시
+        document.addEventListener("DOMContentLoaded", function () {
+            const userId = localStorage.getItem("userId");
+            const greetingElement = document.getElementById("userGreeting");
+
+            if (greetingElement) {
+                greetingElement.textContent = userId ? `${userId}님, 환영합니다!` : "로그인해주세요!";
+            }
+        });
 
         const faqData = {
             "자격증": {
