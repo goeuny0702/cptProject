@@ -11,7 +11,8 @@
 <body>
     <div class="container">
         <h1 id="resultText"></h1>
-        <P>각 문제를 클릭하여 풀이를 확인할 수 있습니다. <button onclick="problemadd()" class="retrybutton" style="margin-left: 70%; width: 100px;">문제
+        <P>각 문제를 클릭하여 풀이를 확인할 수 있습니다. <button onclick="problemadd()" class="retrybutton"
+                style="margin-left: 70%; width: 100px;">문제
                 추가</button></P>
 
         <!-- 정답 리스트 -->
@@ -38,17 +39,18 @@
             window.location.href = "add_question.html";
         }
 
+        // 이름 받아오기
+        const userName = localStorage.getItem("userName"); // userName 먼저 가져오기
+        const savedUserId = localStorage.getItem("userId"); // userId 가져오기
 
-        //이름 받아오기
-        const userName = localStorage.getItem("userName") || "이름없음";
-        //아이디 받아오기
-        const savedUserId = localStorage.getItem("userId") || "이름없음";
-
-        if (userName) {
+        if (userName && userName !== "이름없음") {
             document.getElementById("resultText").textContent = `${userName}님`;
-        } else {
+        } else if (savedUserId && savedUserId !== "이름없음") {
             document.getElementById("resultText").textContent = `${savedUserId}님`;
+        } else {
+            document.getElementById("resultText").textContent = `이름없음`;
         }
+
 
         // 저장된 결과 데이터 가져오기
         const results = JSON.parse(localStorage.getItem("examResults") || "[]");
