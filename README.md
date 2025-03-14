@@ -1,1 +1,1 @@
-<img src="C:\Users\User\Desktop\cbt 출력물\백호의발톱포트폴리오.png\백호의발톱포트폴리오_1.png" alt="img">
+![백호의발톱포트폴리오_1](https://github.com/user-attachments/assets/d5b1b66d-5a6a-4f39-bc2c-e03e23dbd4d7)
